@@ -1,0 +1,101 @@
+init python:
+    # 1. Definimos la función que leerá las coordenadas
+    def al_soltar_rosa(drags, drop):
+        if drags:
+            # Obtenemos el primer objeto arrastrado
+            objeto = drags[0]
+            # Guardamos sus coordenadas x e y en variables de Ren'Py
+            store.pos_x_rosa = objeto.x
+            store.pos_y_rosa = objeto.y
+            
+            # (Opcional) Muestra las coordenadas en la consola de desarrollo (Shift+D)
+            print(f"Objeto {objeto.drag_name} en: X={objeto.x}, Y={objeto.y}")
+        return
+
+    def al_soltar_azul(drags, drop):
+        if drags:
+            # Obtenemos el primer objeto arrastrado
+            objeto = drags[0]
+            # Guardamos sus coordenadas x e y en variables de Ren'Py
+            store.pos_x_azul = objeto.x
+            store.pos_y_azul = objeto.y
+            
+            # (Opcional) Muestra las coordenadas en la consola de desarrollo (Shift+D)
+            print(f"Objeto {objeto.drag_name} en: X={objeto.x}, Y={objeto.y}")
+        return
+
+    def al_soltar_rojo(drags, drop):
+        if drags:
+            # Obtenemos el primer objeto arrastrado
+            objeto = drags[0]
+            # Guardamos sus coordenadas x e y en variables de Ren'Py
+            store.pos_x_rojo = objeto.x
+            store.pos_y_rojo = objeto.y
+            
+            # (Opcional) Muestra las coordenadas en la consola de desarrollo (Shift+D)
+            print(f"Objeto {objeto.drag_name} en: X={objeto.x}, Y={objeto.y}")
+        return
+
+
+# 2. Creamos las variables para almacenar los datos
+default pos_x_rosa = 0
+default pos_y_rosa = 0
+
+default pos_x_azul = 0
+default pos_y_azul = 0
+
+default pos_x_rojo = 0
+default pos_y_rojo = 0
+
+
+screen mi_pantalla_drag():
+    image Solid("#646363")
+    draggroup:
+        drag: 
+            align(0.3, 0.5)
+            drag_raise True 
+            drag_offscreen (50,-50,50,-50)
+            droppable False
+
+            drag_name "mi_objeto"
+            dragged al_soltar_rosa 
+        
+            image Solid("#f017e5ff") xysize(50, 50)
+
+screen drag_drop():
+    image Solid("#646363")
+    draggroup:
+        drag: 
+            align(0.3, 0.5)
+            drag_raise True 
+            drag_offscreen (50,-50,50,-50)
+            drag_name "rosa"
+            dragged al_soltar_rosa 
+
+            image Solid("#f017e5ff") xysize(50, 50)
+        drag: 
+            align(0.5, 0.5)
+            drag_raise True
+            drag_offscreen (50,-50,50,-50)
+            drag_name "azul"
+            dragged al_soltar_azul
+
+
+            image Solid("#2310d4ff") xysize(250, 250)
+        drag: 
+            align(0.7, 0.5)
+            drag_raise True 
+            drag_offscreen (50,-50,50,-50)
+            drag_name "rojo"
+            dragged al_soltar_rojo 
+
+
+            image Solid("#ff0000ff") xysize(250, 250)
+label start:
+    show screen drag_drop
+    "Arrastra el objeto y luego haz clic para ver las coordenadas guardadas."
+    "El rosa terminó en las coordenadas: X=[pos_x_rosa], Y=[pos_y_rosa]"
+    "El azul terminó en las coordenadas: X=[pos_x_azul], Y=[pos_y_azul]"
+    "El rojo terminó en las coordenadas: X=[pos_x_rojo], Y=[pos_y_rojo]"
+
+    return
