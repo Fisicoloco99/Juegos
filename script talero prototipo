@@ -1,0 +1,82 @@
+
+
+# ============================================================
+# VARIABLES DEL TABLERO (10x10)
+# ============================================================
+define COLUMNAS = 10
+define FILAS = 10
+define CASILLA_W = 90
+define CASILLA_H = 90
+define OFFSET_X = 510
+define OFFSET_Y = 90
+# ============================================================
+# FUNCION DE CLIC 
+# ============================================================
+init python:
+
+    def cordenada(tablero, columna, fila):
+        renpy.notify("Tocaste la casilla: "+str(columna)+"y"+str(fila))
+        
+
+
+
+
+# ============================================================
+# SCREEN: TABLERO 10x10
+# ============================================================
+screen tablero():
+
+    fixed:
+        # Fondo de pantalla 
+        add Solid("#6b6969")
+        # Grilla de botones
+        draggroup:
+
+            drag: 
+                align(28, 0.5)
+                drag_raise True
+                drag_offscreen (50,-50,50,-50)
+                drag_name "rosa"
+                image Solid("#f017c1ff") xysize(90, 90)
+            drag: 
+                align(28, 0.8)
+                drag_raise True
+                drag_offscreen (50,-50,50,-50)
+                drag_name "azul"
+                image Solid("#2310d4ff") xysize(90, 90)
+            drag: 
+                align(28, 0.10)
+                drag_raise True 
+                drag_offscreen (50,-50,50,-50)
+                drag_name "rojo"
+                image Solid("#ff0000ff") xysize(90, 90)
+
+
+            for fila in range(FILAS):
+                for columna in range(COLUMNAS):
+
+                    drag: 
+                        xpos OFFSET_X + columna * CASILLA_W
+                        ypos OFFSET_Y + fila * CASILLA_H
+                        xsize CASILLA_W
+                        ysize CASILLA_H
+
+
+                        draggable False
+                        droppable True     # Puede recibir elementos
+                        dropped  cordenada
+                        drag_name "tabla"
+
+                        frame:
+                            image Solid("#c57070")
+                            padding (25, 25)
+
+       
+label start:
+    
+    call screen tablero
+
+    return
+
+
+
