@@ -1,0 +1,85 @@
+init python:
+    # 1. Definimos la función que leerá las coordenadas
+    def al_soltar_rosa(drags, drop):
+        if drags:
+            # Obtenemos el primer objeto arrastrado
+            objeto = drags[0]
+            # Guardamos sus coordenadas x e y en variables de Ren'Py
+            store.pos_x_rosa = objeto.x
+            store.pos_y_rosa = objeto.y
+            
+            renpy.notify(f"rosa: X={objeto.x}, Y={objeto.y} ")
+
+    def al_soltar_azul(drags, drop):
+        if drags:
+            # Obtenemos el primer objeto arrastrado
+            objeto = drags[0]
+            # Guardamos sus coordenadas x e y en variables de Ren'Py
+            store.pos_x_azul = objeto.x
+            store.pos_y_azul = objeto.y
+            
+            renpy.notify(f" X={objeto.x}, Y={objeto.y} ")
+
+    def al_soltar_rojo(drags, drop):
+        if drags:
+            # Obtenemos el primer objeto arrastrado
+            objeto = drags[0]
+            # Guardamos sus coordenadas x e y en variables de Ren'Py
+            store.pos_x_rojo = objeto.x
+            store.pos_y_rojo = objeto.y
+            
+            renpy.notify(f"rojo X={objeto.x}, Y={objeto.y} ")
+
+
+# 2. Creamos las variables para almacenar los datos
+default pos_x_rosa = 0
+default pos_y_rosa = 0
+
+default pos_x_azul = 0
+default pos_y_azul = 0
+
+default pos_x_rojo = 0
+default pos_y_rojo = 0
+
+
+
+
+
+
+
+screen drag_drop():
+    image Solid("#646363")
+    draggroup:
+        drag: 
+            align(0.3, 0.5)
+            drag_raise True 
+            drag_offscreen (50,-50,50,-50)
+            drag_name "rosa"
+            dragged al_soltar_rosa 
+
+            image Solid("#f017e5ff") xysize(90, 90)
+        drag: 
+            align(0.5, 0.5)
+            drag_raise True
+            drag_offscreen (50,-50,50,-50)
+            drag_name "azul"
+            dragged al_soltar_azul
+
+
+            image Solid("#2310d4ff") xysize(90, 90)
+        drag: 
+            align(0.7, 0.5)
+            drag_raise True 
+            drag_offscreen (50,-50,50,-50)
+            drag_name "rojo"
+            dragged al_soltar_rojo 
+
+
+            image Solid("#ff0000ff") xysize(90, 90)
+label start:
+    
+    show screen drag_drop
+    "Arrastra el objeto y luego suelta para ver las coordenadas guardadas."
+
+
+    return
